@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 로그 상수 설정 -->
+<included>
+    <!-- 기본 로그 경로 -->
+    <property name="DEFAULT_LOG_HOME" value="log" />
+    <!-- ERROR 로그 경로 -->
+    <property name="DEFAULT_ERROR_LOG_HOME" value="log" />
+
+    <!-- 운영서버가 아닌 서버의 최대 로그 저장 기간 -->
+    <property name="DEFAULT_MAX_HISTORY" value="10" />
+    <!-- 운영서버 최대 로그 저장 기간 -->
+    <property name="PROD_MAX_HISTORY" value="90" />
+    <!-- 최대 로그 파일 사이즈 MB -->
+    <property name="DEFAULT_MAX_FILESIZE" value="500MB" />
+
+    <!-- 기본 BOT 이미지 URL -->
+    <property name="DEFAULT_BOT_IMAGE_URL" value="https://cdn3.iconfinder.com/data/icons/chat-bot-emoji-filled-color/300/14157797Untitled-3-512.png" />
+    <!-- 기본 BOT NAME -->
+    <property name="DEFAULT_BOT_NAME" value="backoffice-skeleton-bot" />
+    <!-- HOOK LOCAL URL -->
+    <property name="HOOK_LOCAL_URL" value="https://hook.dooray.com/services/2256444361245483660/2602126654611970720/ygNH5KSQSq-69-Qo6_hRbw" />
+    <!-- HOOK DEV URL -->
+    <property name="HOOK_DEV_URL" value="https://hook.dooray.com/services/2256444361245483660/2597579709730716304/YoMww7PHQQanz16or96VhA" />
+    <!-- HOOK STAGE URL -->
+    <property name="HOOK_STAGE_URL" value="https://hook.dooray.com/services/2256444361245483660/2597581190848779709/xWFMEdYjQcypkj5CKYlU5Q" />
+    <!-- HOOK PROD URL -->
+    <property name="HOOK_PROD_URL" value="https://hook.dooray.com/services/2256444361245483660/2597096873627946881/3LaicahCRTO278TIjmeqzA" />
+</included>

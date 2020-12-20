@@ -1,0 +1,8 @@
+com/yeji/common/BaseFileTest.java
+ com.yeji.common.BaseFileTest
+com/yeji/config/S3MockConfig.java
+ com.yeji.config.S3MockConfig
+com/yeji/api/shoppingmall/controller/ShoppingMallControllerTest.java
+ com.yeji.api.shoppingmall.controller.ShoppingMallControllerTest
+com/yeji/common/BaseTest.java
+ com.yeji.common.BaseTest

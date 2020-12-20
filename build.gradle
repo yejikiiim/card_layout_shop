@@ -1,0 +1,219 @@
+buildscript {
+
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.jooq:jooq-codegen:3.14.4'
+        classpath 'com.h2database:h2:1.4.200'
+        classpath 'org.jooq:jooq-meta-extensions:3.13.4'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin'
+        classpath 'org.springframework.boot:spring-boot-starter-web:2.3.2.RELEASE'
+        classpath 'org.liquibase:liquibase-core:3.4.1'
+        classpath 'org.liquibase:liquibase-gradle-plugin:1.1.1'
+    }
+
+
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'nu.studer.jooq' version '5.2'
+    id 'java'
+}
+
+
+
+apply plugin: 'application'
+mainClassName='com.yeji.Application'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'liquibase'
+compileJava.options.encoding('UTF-8')
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+
+test {
+    exclude '**/*'
+}
+dependencies {
+    compile 'org.jooq:jooq:3.14.4'
+    runtime('org.glassfish.jaxb:jaxb-runtime:2.3.0')
+    runtime('javax.activation:activation:1.1.1')
+    runtime 'com.h2database:h2:1.4.200'
+    compile 'org.liquibase:liquibase-core'
+    testCompile 'junit:junit:4.11'
+}
+
+
+liquibase {
+    activities {
+        main {
+            changeLogFile "$projectDir/src/main/resources/db/changelog/db.changelog-master.yaml"
+            url 'jdbc:h2:~'
+            username 'sa'
+            password ''
+        }
+    }
+}
+
+
+import org.jooq.codegen.GenerationTool
+import org.jooq.meta.jaxb.*
+
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-jooq:2.3.2.RELEASE'
+    compile 'org.jooq:jooq-meta:3.13.4'
+    compile 'org.jooq:jooq-codegen:3.13.4'
+    compile 'org.jooq:jooq:3.13.4'
+    compile 'org.jooq:jooq-meta-extensions:3.13.4'
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.3.2.RELEASE'
+    implementation 'mysql:mysql-connector-java:8.0.21'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.6.2'
+    implementation 'org.springframework.boot:spring-boot-starter-freemarker:2.3.2.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.3.2.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor:2.3.2.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.3.2.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.3.2.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-devtools:2.3.2.RELEASE'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.2.RELEASE'
+    implementation 'org.springframework.security:spring-security-jwt:1.1.0.RELEASE'
+
+    implementation 'org.apache.httpcomponents:httpclient:4.5.12'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.1'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.11.1'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'com.fasterxml.uuid:java-uuid-generator:4.0.1'
+    implementation 'org.apache.commons:commons-lang3:3.11'
+    implementation 'org.apache.commons:commons-text:1.8'
+    implementation 'commons-fileupload:commons-fileupload:1.4'
+    implementation 'commons-io:commons-io:2.7'
+    implementation 'commons-codec:commons-codec:1.14'
+    implementation 'com.google.guava:guava:29.0-jre'
+    implementation 'com.jayway.jsonpath:json-path:2.4.0'
+    implementation 'io.springfox:springfox-swagger2:2.10.5'
+    implementation 'io.springfox:springfox-swagger-ui:2.10.5'
+    implementation 'io.springfox:springfox-data-rest:2.10.5'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest:2.3.2.RELEASE'
+    implementation 'org.apache.poi:poi:4.1.2'
+    implementation 'org.apache.poi:poi-ooxml:4.1.2'
+    implementation 'org.jxls:jxls-jexcel:1.0.9'
+    implementation 'eu.bitwalker:UserAgentUtils:1.21'
+    implementation 'com.github.drapostolos:type-parser:0.6.0'
+    implementation 'com.h2database:h2:1.4.200'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.2.RELEASE'
+    testImplementation 'io.findify:s3mock_2.12:0.2.6'
+
+}
+
+group = 'com.yeji'
+version = '0.0.1'
+description = 'test-shopping-mall'
+java.sourceCompatibility = JavaVersion.VERSION_14
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+
+///start
+
+ext.genpath = new File("${projectDir}/src/main/generated")
+
+sourceSets.main.java.srcDirs += genpath.toString()
+
+task generateCode() {
+    if (!genpath.exists()) {
+        genpath.mkdirs()
+    }
+
+    Configuration configuration = new Configuration()
+            .withJdbc(new Jdbc()
+                    .withDriver('org.h2.Driver')
+                    .withUrl('jdbc:h2:~')
+                    .withUser('sa')
+                    .withPassword('')
+                    .withAutoCommit(true)
+                    .withProperties()
+            )
+            .withGenerator(new Generator()
+                    .withDatabase(new Database()
+                            .withDateAsTimestamp(false)
+                            .withName("org.jooq.meta.extensions.ddl.DDLDatabase")
+                            .withProperties(
+                                    new Property()
+                                            .withKey("scripts")
+                                            .withValue("src/main/resources/sql/data-h2.sql"),
+                                    new Property()
+                                            .withKey("scripts")
+                                            .withValue("src/main/resources/sql/shoppingmall-h2.sql")
+                            )
+                        .withIncludeUniqueKeys(false)
+                        .withIncludePrimaryKeys(false)
+                        .withForcedTypes(
+                            new ForcedType()
+                                .withName("BOOLEAN")
+                                .withIncludeTypes("(?i:TINYINT\\(1\\))"),
+                            new ForcedType()
+                                .withName("INTEGER")
+                                .withIncludeTypes("(?i:TINYINT\\(3\\))"),
+                            new ForcedType()
+                                .withName("TIMESTAMP")
+                                .withIncludeTypes("DATE\\(0\\)")
+                        )
+                    )
+                    .withGenerate(new Generate()
+                        .withPojos(true)
+                        .withDaos(false)
+                        .withJavaTimeTypes(false)
+                        .withDeprecated(false)
+                        .withInstanceFields(true)
+                        .withIndexes(true)
+                        .withRelations(true)
+                        .withKeys(false)
+                    .withDeprecationOnUnknownTypes(false))
+                    .withTarget(new Target()
+                            .withEncoding("UTF-8")
+                            .withPackageName("com.yeji.h2.entity")
+                            .withDirectory("$projectDir/src/main/generated"))
+                    )
+
+
+    GenerationTool.generate(configuration)
+
+}
+
+task deleteGeneratedCode(type: Delete) {
+    delete genpath
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java','/src/main/generated'];
+        }
+    }
+}

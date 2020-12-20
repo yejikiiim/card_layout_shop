@@ -1,0 +1,134 @@
+## 서비스 설정
+service:
+  name: test-shoppingmall
+  version: V0.0.1
+
+## 서버 설정
+server:
+  port: 8080
+  servlet:
+    context-path: /product
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+## Spring 설정
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  profiles:
+    active: local
+  servlet:
+    multipart:
+      ## 멀티파트 업로드 지원여부 (default: true)
+      enabled: true
+      ## 업로드된 파일의 임시 저장 공간
+      ## TEMP 파일 경로 지정시 절대경로 지정 default: ${java.io.tmpdir}
+      ## ${user.dir}/tmpfiles 는 현재 프로젝트에 tmpfiles
+      ## ${user.home}/${service.name}/tmpfiles 는 USER HOME 디렉토리에 rcs/tmpfiles
+      location: ${user.dir}/tmpfiles
+      ## 파일의 최대 사이즈 (default: 1MB) 파일당 최대 파일 크기이다
+      max-file-size: -1
+      ## 요청의 최대 사이즈 (default: 10MB)
+      ## 파일 한 개의 용량이 아니라 multipart/form-data 요청당 최대 파일 크기이다 (여러 파일 업로드 시 총 크기로 보면 된다)
+      max-request-size: -1
+      ## 파일이 메모리에 기록되는 임계값 (default: 0B)
+      ## 파일의 크기가 fize-size-threshold 값을 초과한다면 파일은 location 경로에 저장되어 해당 파일을 읽어서 작업
+      file-size-threshold: 1MB
+  jackson:
+    ## SnakeCase -> CamelCase 로 변환해서 받게 해줌
+#    property-naming-strategy: SNAKE_CASE
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  # LOCAL H2 DB 설정
+  datasource:
+    platform: h2
+    # 공통 코드 테이블 생성
+    schema: classpath:sql/shoppingmall-h2.sql
+    # 공통 코드 테스트 데이터 INSERT
+    data: classpath:sql/data-h2.sql
+    # 로컬에서 H2 DB에 초기 테이블을 만들어주는 설정 H2 DB를 사용하지 않으면 주석처리
+    initialization-mode: always
+    # h2 DB 사용 설정
+    url: jdbc:h2:~
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      # h2 console 사용
+      enabled: true
+      # /h2 로 접속 지정하지 않으면 /h2-console 로 접속
+      path: /h2
+  jooq:
+    sql-dialect: h2
+
+## Excel 설정
+  mvc:
+    contentnegotiation:
+      ## favor-parameter 값이 true면 ContentNegotiationViewResolver가
+      ## format 파라미터로 지정한 미디어 타입을 사용하도록 설정
+      favor-parameter: true
+      ## favor-path-extension 값이 true면 ContentNegotiationViewResolver가
+      ## 확장자로 지정한 미디어 타입을 사용하도록 설정
+      favor-path-extension: true
+      media-types:
+        xls: application/vnd.ms-excel
+    converters:
+      preferred-json-mapper: jackson
+    view:
+      prefix: /templates
+      suffix: .ftl
+    static-path-pattern: /resources/**
+  freemarker:
+    template-loader-path: classpath:/templates
+    suffix: .ftl
+    content-type: text/html
+    charset: utf-8
+
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+cloud:
+  aws:
+    # AWS S3 bucket의 정보
+    region:
+      static: ap-northeast-2
+    s3:
+      bucket:
+    stack:
+      # EC2에서 Spring Cloud 프로젝트를 실행시키면 기본으로 CloudFormation 구성을 시작합니다.
+      # 설정한 CloudFormation이 없으면 false
+      auto: false
+    # AWS 마스터 계정 또는 IAMUSER 정보
+    credentials:
+      # AWS의 instanceProfile를 사용
+      instanceProfile: true
+
+
+## 외부 서비스 URL
+external-service:
+  api1:
+  api2:
+
+## 기타 속성설정
+properties:
+  file:
+## 최대 업로드 사이즈 기본 100 MB
+    max-upload-size: 100
+## 업로드 경로 Docker 컨테이너 내부 경로
+## auto_apply.sh 파일의 [FILE_UPLOAD_PATH]에 설정된 HOST 파일업로드 경로와 Mapping
+
+## 경로 지정 설명
+## ${user.home} - USER HOME 경로에 files 디렉토리 ex) /home/user/files
+## files - Project 디렉토리 경로에 files 디렉토리 ex) backoffice-skeleton/files
+## /files - 절대경로인 ROOT 경로에 files 디렉토리 ex) /files
+
+## Docker로 구동시 Docker 컨테이너 내의 /files 경로를 파일 업로드 경로로 지정함
+    upload-dir: src/main/resources/static/img
+
+

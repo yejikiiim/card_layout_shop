@@ -1,0 +1,119 @@
+/*!
+ * Start Bootstrap - Shop Homepage (https://startbootstrap.com/template/shop-homepage)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
+ */
+body {
+  padding-top: 56px;
+}
+.bill .cont {
+  overflow: hidden;
+  height: 100%;
+  padding: 0;
+  min-height: 500px;
+}
+.v2goods {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  background: #f2f2f2;
+  padding-bottom: 15px;
+}
+.as_gnb_cart {
+  margin-top: 44px !important;
+}
+.v2goods .info_area {
+  background: #fff;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+}
+.order_state_area {
+  margin-top: 61px !important;
+}
+.v2goods .info_area .sold_box {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  width: 400px;
+  text-align: center;
+  vertical-align: top;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.swiper-container {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+}
+.swiper-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  transition-property: transform;
+  box-sizing: content-box;
+}
+.v2goods .info_area .info {
+  display: inline-block;
+  width: 410px;
+  margin-left: 15px;
+  letter-spacing: 0;
+}
+.v2goods .info_area .info div {
+  margin-top: 6px;
+  padding-bottom: 6px;
+}
+.txt_b18 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+}
+.price {
+  font-size: 22px;
+  color: #222;
+}
+.optionzone {
+  clear: both;
+  padding-top: 6px;
+  border-top: 1px solid #ebebeb;
+}
+.fl {
+  float: left;
+}
+.totalzone .fr {
+  font-size: 16px;
+}
+
+.fr {
+  float: right;
+}
+.bold {
+  font-weight: 600 !important;
+}
+.flexible_btn_num2 {
+  overflow: hidden;
+  vertical-align: middle;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 35px;
+}
+.flexible_btn_num2 a:nth-child(2) {
+  float: right;
+  width: 69%;
+}
+.btn_b_redfull {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFF;
+  background: #df4747;
+  border: 1px solid #df4747;
+  border-radius: 1px;
+  padding: 13px 0 14px 0;
+  box-sizing: border-box;
+}

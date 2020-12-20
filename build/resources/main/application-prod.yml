@@ -1,0 +1,18 @@
+spring:
+  mvc:
+    view:
+      prefix: /templates
+      suffix: .jsp
+    static-path-pattern: /resources/**
+logging:
+  config: classpath:logs/logback-prod.xml
+
+# AWS 정보 셋팅
+cloud:
+  aws:
+    # AWS S3 bucket의 정보
+    s3:
+#      bucket: tis.parkingcloud.co.kr
+#      imis-bucket: image.parkingcloud.co.kr
+#      tis-download-url: https://s3.ap-northeast-2.amazonaws.com/tis.parkingcloud.co.kr/
+#      imis-download-url: https://s3.ap-northeast-2.amazonaws.com/image.parkingcloud.co.kr/
